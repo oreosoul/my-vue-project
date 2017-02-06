@@ -1,12 +1,32 @@
 <template>
   <div class="pages">
+    <v-nav :user='user' :is-login='isLogin'></v-nav>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+  import Nav from './components/component/nav'
   export default{
-    }
+    data() {
+      return{
+        user: '',
+        isLogin: false,
+      }
+    },
+    events:{
+      'user-islogin': function (isLogin,name) {
+        this.isLogin=isLogin
+        this.user = name
+      },
+      'change-islogin': function (isLogin) {
+        this.isLogin=isLogin
+      },
+    },
+    components: {
+      'v-nav': Nav,
+    },
+  }
 </script>
 
 <style>

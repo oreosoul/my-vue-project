@@ -7,11 +7,12 @@ var router = new VueRouter()
 //配置路由
 router.map({
   '/': {
+    name: "main",
+    component: resolve => require(['./components/main/main'],resolve)
+  },
+  '/login': {
     name: "login",
     component: resolve => require(['./components/view/Login'],resolve)
-  },
-  '/main': {
-    component: resolve => require(['./components/main/main'],resolve)
   },
 })
 

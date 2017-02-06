@@ -23,13 +23,18 @@
             return{
                 name: '', //用户名
 				password: '', //密码
+				isLogin: false,
             }
+        },
+		props: {
         },
 		methods: {
 			login() {
 				var _this = this;
 				if(this.name != '' && this.password != '') {
-					this.$route.router.go({path: 'main'})
+					this.isLogin = true
+					this.$dispatch('user-islogin', this.isLogin,this.name)
+					this.$route.router.go({path: '/'})
 				} else {
 					alert('账号或密码不能为空！')
 				}
