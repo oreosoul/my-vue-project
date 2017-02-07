@@ -1,0 +1,45 @@
+{
+    "list":[
+		{"status": 0,"content": "游客未完成"},
+		{"status": 1,"content": "游客已完成"},
+		{"status": 2,"content": "游客已移除"}
+    ],
+    "users":[
+        {
+            "username":"cheuk",
+            "password":"cheuk",
+            "list":[
+                {"status": 0,"content": "cheuk未完成"},
+                {"status": 1,"content": "cheuk已完成"},
+                {"status": 2,"content": "cheuk已移除"}
+            ]
+        },
+        {
+            "username":"duke",
+            "password":"duke",
+            "list":[
+                {"status": 0,"content": "duke未完成"},
+                {"status": 1,"content": "duke已完成"},
+                {"status": 2,"content": "duke已移除"}
+            ]
+        },
+        {
+            "username":"leon",
+            "password":"leon",
+            "list":[
+                {"status": 0,"content": "leon未完成"},
+                {"status": 1,"content": "leon已完成"},
+                {"status": 2,"content": "leon已移除"}
+            ]
+        },
+        {
+            "username":"luisa",
+            "password":"luisa",
+            "list":[
+                {"status": 0,"content": "luisa未完成"},
+                {"status": 1,"content": "luisa已完成"},
+                {"status": 2,"content": "luisa已移除"}
+            ]
+        }
+    ]
+}

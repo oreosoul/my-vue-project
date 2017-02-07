@@ -13,8 +13,8 @@ export const deleteTodo = function({ dispatch,state},index){
 export const unfinishTodo = function({ dispatch,state},index){
     dispatch('UNFINISHTODO', index)
 }
-export const loginAction = function({ dispatch,state},user){
-    dispatch('LOGINACTION', user)
+export const loginAction = function({ dispatch,state},user,list){
+    dispatch('LOGINACTION', user,list)
 }
 export const logoutAction = function({ dispatch,state}){
     dispatch('LOGOUTACTION')

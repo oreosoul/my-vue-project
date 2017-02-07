@@ -1,29 +1,26 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import data from '../../assets/json/data.json'
 
 Vue.use(Vuex)
 
 const state = {
-	list:[
-		{status: 0,content: '未完成'},
-		{status: 1,content: '已完成'},
-		{status: 2,content: '已移除'},
-	],
+	list: data.list,
 	user: '',
 	isLogin: false,
 }
 
 const mutations = {
 	ADDTODOS(state,title){
-		if(title===''){
+		if(title===""){
 			return
 		}
 		let obj = {
-			status: 0,
-			content: title
+			"status": 0,
+			"content": title
 		}
 		state.list.push(obj);
-		title = '';
+		title = "";
 	},
 	FINISHTODO(state,index){
 		let list = state.list;
@@ -43,13 +40,15 @@ const mutations = {
 		list[index].status = 0;
 		state.list = list;
 	},
-	LOGINACTION(state,user){
+	LOGINACTION(state,user,list){
 		state.isLogin = true
 		state.user = user
+		state.list = list
 	},
 	LOGOUTACTION(state,user){
 		state.isLogin = false
 		state.user = ""
+		state.list = data.list
 	},
 }
 

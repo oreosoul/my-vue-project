@@ -82,7 +82,8 @@
 <script>
     import store from '../vuex/store'
     import {user,
-            list
+            list,
+            isLogin
     } from '../vuex/getter'
     import {addTodos,
             finishTodo,
@@ -159,6 +160,7 @@
             getters: {
                 user,
                 list,
+                isLogin
             }
         },
 	}

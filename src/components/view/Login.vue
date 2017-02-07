@@ -21,6 +21,7 @@
 	import store from '../vuex/store'
 	import {isLogin} from '../vuex/getter'
 	import {loginAction} from '../vuex/action'
+	import data from '../../assets/json/data.json'
     export default{
         data() {
             return{
@@ -33,12 +34,24 @@
         },
 		methods: {
 			login() {
-				if(this.username != '' && this.password != '') {
-					this.loginAction(this.username)
-					this.$route.router.go({path: '/'})
-					this.$Message.success('登陆成功')
-				} else {
+				if(this.username === '' || this.password === '') {
 					this.$Message.warning('账号或密码不能为空！')
+				} else {
+					for(let i in data.users){
+						if(data.users[i].username===this.username){
+							if(data.users[i].password===this.password){
+								let list = data.users[i].list
+								this.loginAction(this.username,list)
+								this.$route.router.go({path: '/'})
+								this.$Message.success('登陆成功')
+								return;
+							}else{
+								this.$Message.error ('密码错误')
+								return;
+							}
+						}
+					}
+					this.$Message.error ('用户不存在')
 				}
 			}
 		},
