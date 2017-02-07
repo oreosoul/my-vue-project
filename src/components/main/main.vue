@@ -5,9 +5,9 @@
 				<h1 class="logo-name" style="text-align: center;"> 
 					<img src="../../assets/logo.png" alt="" width="120px"/>
 				</h1>
-                <p>欢迎{{name}}，以下是待办事项</p>
+                <p>欢迎{{user}}，以下是待办事项</p>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="请输入待办事项" required="" v-model="todos" @keyup.enter="addTodos">
+                    <input type="text" class="form-control" placeholder="请输入待办事项" required="" v-model="todos" @keyup.enter="addTodos(todos)">
                 </div>
                 <div class="btn-container">
                     <div>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <div v-show='num===0'>
-                    <div v-show='!Done'>
+                    <div v-if='Undo'>
                         <ul class="todo-list">
                             <template v-for="todo in list">
                                 <li v-if="todo.status==0">
@@ -31,12 +31,12 @@
                             </template>
                         </ul>
                     </div>
-                    <div v-show='Done' class="none-todo">
+                    <div v-else class="none-todo">
                         暂无待办事项
                     </div>
                 </div>
                 <div v-show='num===1'>
-                    <div v-if='!Undo'>
+                    <div v-if='Done'>
                         <ul class="todo-list">
                             <template v-for="todo in list">
                                 <li v-if="todo.status==1">
@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div v-show='num===2'>
-                    <div v-if='!Remove'>
+                    <div v-if='Remove'>
                         <ul class="todo-list">
                             <template v-for="todo in list">
                                 <li v-if="todo.status==2">
@@ -77,99 +77,83 @@
 </template>
 
 <script>
+    import store from '../vuex/store'
+    import {addTodos,
+            finishTodo,
+            removeTodo,
+            deleteTodo,
+            unfinishTodo
+    } from '../vuex/action'
     export default {
 		data() {
 			return {
-                name: 'Cheuk',
 				todos: '',
                 //* 事件list status：未完成0，完成1，删除2*//
-                list: [
-                    {status:0,content:'1'},
-                    {status:1,content:'2'},
-                    {status:0,content:'3'},
-                    {status:2,content:'4'},
-                ],
-                count: 0,
                 num: 0,
                 options: ['待办事项','完成事项','回收站'],
 			}
 		},
-        computed: {
-            Done(){
-                let count = 0;
-                let length = this.list.length;
-                for(let i in this.list){
-                    this.list[i].status === 1||this.list[i].status === 2 ? count += 1 : '';
-                }
-                this.count = count;
-                if(length===0||count===length){
-                    return true;
-                }else{
-                    return false;
-                }
+        props: {
+            user:{
+                type:String
             },
+        },
+        computed: {
             Undo(){
                 let count = 0;
                 let length = this.list.length;
                 for(let i in this.list){
-                    this.list[i].status === 0||this.list[i].status === 2 ? count += 1 : '';
+                    this.list[i].status === 0 ? count += 1 : '';
                 }
-                if(length===0||count===length){
-                    return true;
-                }else{
+                if(count===0){
                     return false;
+                }else{
+                    return true;
+                }
+            },
+            Done(){
+                let count = 0;
+                let length = this.list.length;
+                for(let i in this.list){
+                    this.list[i].status === 1 ? count += 1 : '';
+                }
+                if(count===0){
+                    return false;
+                }else{
+                    return true;
                 }
             },
             Remove(){
                 let count = 0;
                 let length = this.list.length;
                 for(let i in this.list){
-                    this.list[i].status === 0||this.list[i].status === 1 ? count += 1 : '';
+                    this.list[i].status === 2 ? count += 1 : '';
                 }
-                if(length===0||count===length){
-                    return true;
-                }else{
+                if(count===0){
                     return false;
+                }else{
+                    return true;
                 }
             },
         },
 		methods:{
-            addTodos(){
-                if(this.todos===''){
-                    return
-                }
-                let obj = {
-                    status: 0,
-                    content: this.todos
-                }
-                this.list.push(obj);
-                this.todos = '';
-            },
-            finishTodo(index){
-                var list = this.list;
-                list[index].status = 1;
-                this.list = list;
-                // this.$set(this.list,'status',true);
-            },
-            removeTodo(index){
-                var list = this.list;
-                list[index].status = 2;
-                this.list = list;
-            },
-            deleteTodo(index){
-                this.list.splice(index,1);
-            },
-            unfinishTodo(index){
-                var list = this.list;
-                list[index].status = 0;
-                this.list = list;
-                // this.$set(this.list[index],'status',false);
-            },
             changeNum(index){
                 this.num=index;
             }
 		},
-		
+        store: store,
+        vuex:{
+            actions: {
+                addTodos,
+                finishTodo,
+                removeTodo,
+                deleteTodo,
+                unfinishTodo,
+            },
+            getters: {
+                list:status => status.list,
+            }
+        },
 	}
 </script>
 <style>

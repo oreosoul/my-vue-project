@@ -35,8 +35,9 @@
 					this.isLogin = true
 					this.$dispatch('user-islogin', this.isLogin,this.name)
 					this.$route.router.go({path: '/'})
+					this.$Message.success('登陆成功')
 				} else {
-					alert('账号或密码不能为空！')
+					this.$Message.warning('账号或密码不能为空！')
 				}
 			}
 		}

@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import App from './App'
+import iView from 'iview'
 import VueRouter from 'vue-router'
+import store from './components/vuex/store'
+import 'iview/dist/styles/iview.css';
+Vue.use(iView)
 Vue.use(VueRouter)
 var router = new VueRouter()
 
@@ -22,6 +26,7 @@ router.start(App,"#app")
 /* eslint-disable no-new */
 new Vue({
   el: 'body',
+  store,
   components: { App }
 })
 
