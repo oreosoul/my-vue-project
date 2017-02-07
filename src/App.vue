@@ -1,7 +1,7 @@
 <template>
   <div class="pages">
-    <v-nav :user='user' :is-login='isLogin'></v-nav>
-    <router-view :user='user'></router-view>
+    <v-nav></v-nav>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -11,20 +11,17 @@
   export default{
     data() {
       return{
-        user: '',
-        list: [],
-        isLogin: false,
       }
     },
     store: store,
     events:{
-      'user-islogin': function (isLogin,name) {
-        this.isLogin=isLogin
-        this.user = name
-      },
-      'change-islogin': function (isLogin) {
-        this.isLogin=isLogin
-      },
+      // 'user-islogin': function (isLogin,name) {
+      //   this.isLogin=isLogin
+      //   this.user = name
+      // },
+      // 'change-islogin': function (isLogin) {
+      //   this.isLogin=isLogin
+      // },
     },
     components: {
       'v-nav': Nav,

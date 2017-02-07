@@ -5,7 +5,10 @@
 				<h1 class="logo-name" style="text-align: center;"> 
 					<img src="../../assets/logo.png" alt="" width="120px"/>
 				</h1>
-                <p>欢迎{{user}}，以下是待办事项</p>
+                <p>
+                    <span v-if="!isLogin">游客请先<a v-link="{path:'/login'}">登录</a></span>
+                    <span v-else>欢迎{{user}}</span>，以下是待办事项
+                </p>
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="请输入待办事项" required="" v-model="todos" @keyup.enter="addTodos(todos)">
                 </div>
@@ -78,6 +81,9 @@
 
 <script>
     import store from '../vuex/store'
+    import {user,
+            list
+    } from '../vuex/getter'
     import {addTodos,
             finishTodo,
             removeTodo,
@@ -151,7 +157,8 @@
                 unfinishTodo,
             },
             getters: {
-                list:status => status.list,
+                user,
+                list,
             }
         },
 	}

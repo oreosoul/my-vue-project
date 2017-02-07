@@ -7,7 +7,7 @@
 				</h1>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="用户名" required="" v-model="name">
+				<input type="text" class="form-control" placeholder="用户名" required="" v-model="username">
 			</div>
 			<div class="form-group">
 				<input type="password" class="form-control" placeholder="密码" required="" v-model='password' @keyup.enter='login'>
@@ -18,10 +18,13 @@
 </template>
 
 <script>
+	import store from '../vuex/store'
+	import {isLogin} from '../vuex/getter'
+	import {loginAction} from '../vuex/action'
     export default{
         data() {
             return{
-                name: '', //用户名
+                username: '', //用户名
 				password: '', //密码
 				isLogin: false,
             }
@@ -30,17 +33,24 @@
         },
 		methods: {
 			login() {
-				var _this = this;
-				if(this.name != '' && this.password != '') {
-					this.isLogin = true
-					this.$dispatch('user-islogin', this.isLogin,this.name)
+				if(this.username != '' && this.password != '') {
+					this.loginAction(this.username)
 					this.$route.router.go({path: '/'})
 					this.$Message.success('登陆成功')
 				} else {
 					this.$Message.warning('账号或密码不能为空！')
 				}
 			}
-		}
+		},
+		store: store,
+		vuex :{
+			actions: {
+				loginAction
+			},
+			getter: {
+				isLogin,
+			},
+		},
     }
 </script>
 <style>

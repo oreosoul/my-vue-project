@@ -9,6 +9,8 @@ const state = {
 		{status: 1,content: '已完成'},
 		{status: 2,content: '已移除'},
 	],
+	user: '',
+	isLogin: false,
 }
 
 const mutations = {
@@ -40,6 +42,14 @@ const mutations = {
 		let list = state.list;
 		list[index].status = 0;
 		state.list = list;
+	},
+	LOGINACTION(state,user){
+		state.isLogin = true
+		state.user = user
+	},
+	LOGOUTACTION(state,user){
+		state.isLogin = false
+		state.user = ""
 	},
 }
 
